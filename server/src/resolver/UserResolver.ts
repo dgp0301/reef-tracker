@@ -1,9 +1,10 @@
 import { Resolver, Query } from "type-graphql";
+import { User } from "../entity/User";
 
 @Resolver()
-export class BookResolver {
-  @Query(() => String)
-  hello() {
-    return "world";
-  }
+export class UserResolver {
+	@Query(() => [User])
+	getUsers() {
+		return User.find();
+	}
 }

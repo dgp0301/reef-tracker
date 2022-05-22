@@ -1,3 +1,4 @@
+import { ObjectType, Field, ID } from "type-graphql";
 import {
 	Entity,
 	PrimaryGeneratedColumn,
@@ -5,28 +6,36 @@ import {
 	CreateDateColumn,
 	UpdateDateColumn,
 	ManyToOne,
+	BaseEntity,
 } from "typeorm";
 import { TankType } from "./TankType";
 import { User } from "./User";
 
 @Entity()
-export class Tank {
+@ObjectType()
+export class Tank extends BaseEntity {
 	@PrimaryGeneratedColumn()
+	@Field(() => ID)
 	id: number;
 
 	@Column()
+	@Field()
 	volume: number;
 
 	@Column()
+	@Field()
 	height: number;
 
 	@Column()
+	@Field()
 	length: number;
 
 	@Column()
+	@Field()
 	width: number;
 
 	@ManyToOne(() => TankType)
+	@Field(() => TankType)
 	tankType_id: TankType;
 
 	@CreateDateColumn({
@@ -43,5 +52,6 @@ export class Tank {
 	updatedAt: Date;
 
 	@ManyToOne(() => User, (user) => user.tanks)
+	@Field(() => User)
 	user: User;
 }
